@@ -1,0 +1,25 @@
+{% extends 'layouts/dash.html' %}
+{% block content %}
+<div class="container">
+	<div class="page-header"><h1>Edit a article</h1></div>
+	{% if flashMessage == True %}
+		<div class="alert alert-success" role="alert">
+		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  The article was successfully updated.
+		</div>
+	{% endif %}
+
+	<form action="/admin/article/edit/{{ article.id }}" class="form" method="post">
+		<div class="form-group">
+			<label>Title:</label>
+			<input type="text" name="title" class="form-control" value="{{ article.title }}"></input>
+		</div>
+		<div class="form-group">
+			<label>Body:</label>
+			<textarea class="form-control" name="body" rows="5">{{ article.body }}</textarea>
+		</div>
+		<input type="hidden" name="id" value="{{ article.id }}" />
+		<button type="submit" class="btn btn-default btn-success pull-right">Update</button>
+	</form>
+</div>
+{% endblock %}
