@@ -1,8 +1,15 @@
-from flask import Flask, request, render_template, redirect
+#!/usr/bin/env python
+# coding: utf-8 
+
+import os
+from werkzeug import secure_filename
+from flask import Flask, request, render_template, redirect, url_for, current_app
 from db import Articles
 
-app = Flask(__name__, static_url_path='')
 
+app = Flask(__name__, static_url_path='')
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
 
 @app.route("/")
 def index():
@@ -24,7 +31,7 @@ def articles():
 @app.route("/admin")
 def admin():
 	return render_template("admin/default/index.html")
-	
+
 @app.route("/admin/articles", methods=["GET","POST"])
 def articlesAdmin():
 	return render_template("admin/articles/index.html", articles = Articles.all())
@@ -35,6 +42,13 @@ def addArticle():
 
 	if request.method == "POST":
 		datas = request.form.to_dict()
+		image = request.files.get('image')
+		if image:
+			filename = secure_filename(image.filename)
+			path = os.path.join(current_app.config['MEDIA_ROOT'], filename)
+			image.save(path)
+			datas['image'] = filename
+
 		new_article = Articles.insert(datas)
 		flashMessage = True
 

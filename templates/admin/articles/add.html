@@ -10,7 +10,7 @@
 		</div>
 	{% endif %}
 
-	<form method="post" action="/admin/article-add" class="form">
+	<form method="post" action="/admin/article-add" class="form" enctype="multipart/form-data">
 		<div class="form-group">
 			<label>Title:</label>
 			<input type="text" name="title" class="form-control"></input>
@@ -19,7 +19,12 @@
 			<label>Body:</label>
 			<textarea class="form-control" name="body" rows="5"></textarea>
 		</div>
+		<div class="form-group">
+			<label for="exampleInputFile">Image post</label>
+		    <input type="file" name="image">
+		</div>
 		<button class="btn btn-default btn-success pull-right">Add</button>
 	</form>
 </div>
 {% endblock %}
+
