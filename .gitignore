@@ -53,5 +53,6 @@ docs/_build/
 # PyBuilder
 target/
 media_files/*.jpg
+media_files/*.jpeg
 media_files/*.png
 media_files/*.gif

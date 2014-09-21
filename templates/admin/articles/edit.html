@@ -9,7 +9,7 @@
 		</div>
 	{% endif %}
 
-	<form action="/admin/article/edit/{{ article.id }}" class="form" method="post">
+	<form action="/admin/article/edit/{{ article.id }}" class="form" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<label>Title:</label>
 			<input type="text" name="title" class="form-control" value="{{ article.title }}"></input>
@@ -18,6 +18,12 @@
 			<label>Body:</label>
 			<textarea class="form-control" name="body" rows="5">{{ article.body }}</textarea>
 		</div>
+		
+		<div class="form-group">
+			<label for="exampleInputFile">Image post</label>
+		    <input type="file" name="image">
+		</div>
+
 		<input type="hidden" name="id" value="{{ article.id }}" />
 		<button type="submit" class="btn btn-default btn-success pull-right">Update</button>
 	</form>
