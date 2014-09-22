@@ -11,6 +11,7 @@ from db import Articles
 app = Flask(__name__, static_url_path='')
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 app.config['MEDIA_ROOT'] = os.path.join(PROJECT_ROOT, 'media_files')
+app.config['SECRET_KEY'] = "a7506f01e276a8e3283084aed62c7596" 
 
 @app.route("/media/<path:filename>")
 def media(filename):
@@ -38,8 +39,21 @@ def article_details(article_id):
 def articles():
 	return "listing all articles"
 
+@app.route("/search")
+def search():
+	q = request.args.get("question")
+	results = Articles.query('SELECT * FROM articles WHERE title like "%%s%" ' % (q))
+	questions = [dic(article) for article in results]
+	return render_template("default/search.html", questions= questions)
 
-# Authentucation routes
+
+
+
+"""
+==========================================
+	Authentication routes
+==========================================
+"""
 @app.route("/admin")
 def admin():
 	return render_template("admin/default/index.html")

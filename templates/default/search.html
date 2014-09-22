@@ -1,0 +1,11 @@
+{% extends "layouts/front.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="page-header"><h1>Search</h1></div>
+	{% if questions|length > 0 %}
+	{% else %}
+	<div class="col-md-12 text-center">Search not found</div>
+	{% endif %}
+</div>	
+{% endblock %}
