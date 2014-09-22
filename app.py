@@ -2,6 +2,7 @@
 # coding: utf-8 
 
 import os
+from datetime import datetime
 from werkzeug import secure_filename
 from flask import Flask, request, render_template, redirect, url_for, current_app, send_from_directory
 from db import Articles
@@ -17,7 +18,7 @@ def media(filename):
 
 @app.route("/")
 def index():
-	articles = Articles.all()
+	articles = [dict(article) for article in Articles.all()]
 	return render_template("default/index.html", articles= articles)
 
 @app.route("/about")
@@ -45,7 +46,8 @@ def admin():
 
 @app.route("/admin/articles", methods=["GET","POST"])
 def articlesAdmin():
-	return render_template("admin/articles/index.html", articles = Articles.all())
+	lista = [dict(article) for article in Articles.all()]
+	return render_template("admin/articles/index.html", articles = lista )
 
 @app.route("/admin/article-add", methods=["GET","POST"])
 def addArticle():
@@ -59,7 +61,7 @@ def addArticle():
 			path = os.path.join(current_app.config['MEDIA_ROOT'], filename)
 			image.save(path)
 			datas['image'] = filename
-
+		datas['create_at'] = datetime.now()
 		new_article = Articles.insert(datas)
 		flashMessage = True
 

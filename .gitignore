@@ -56,3 +56,5 @@ media_files/*.jpg
 media_files/*.jpeg
 media_files/*.png
 media_files/*.gif
+media_files/*
+auth-flask/

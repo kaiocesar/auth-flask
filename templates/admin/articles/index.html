@@ -7,15 +7,18 @@
 			<tr>
 				<th class="text-center">#</th>
 				<th class="text-center">Title</th>
+				<th class="text-center">Created at</th>
 				<th class="text-center">Action</th>
 			</tr>
 		</thead>
+
 		<tbody class="text-center">
-			{% if articles %}
+			{% if articles|length > 0 %}
 				{% for article in articles %}
 					<tr>
 						<td>{{ article.id }}</td>
 						<td>{{ article.title }}</td>
+						<td>{{ article.create_at }}</td>
 						<td>
 							<a href="/admin/article/edit/{{ article.id }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
 							<a href="/admin/article/delete/{{ article.id }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span></a>
@@ -29,4 +32,3 @@
 	</table>
 </div>
 {% endblock %}
-
